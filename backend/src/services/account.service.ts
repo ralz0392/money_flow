@@ -1,22 +1,12 @@
-import { firestore } from '../config/firebase';
+// Deprecated: Using PostgreSQL controllers instead of Firestore service
 
 export async function getAccount(id: string) {
-  const db = firestore();
-  const doc = await db.collection('debit_accounts').doc(id).get();
-  if (!doc.exists) return null;
-  return { id: doc.id, ...(doc.data() as any) };
+  throw new Error('Account service is deprecated. Use PostgreSQL queries in controllers instead.');
 }
 
 export async function adjustBalance(id: string, delta: number) {
-  const db = firestore();
-  const ref = db.collection('debit_accounts').doc(id);
-  await db.runTransaction(async (t) => {
-    const doc = await t.get(ref);
-    if (!doc.exists) throw new Error('Account not found');
-    const balance = Number((doc.data() as any).balance || 0);
-    const newBalance = Number((balance + delta).toFixed(2));
-    t.update(ref, { balance: newBalance, updated_at: new Date().toISOString() });
-  });
+  throw new Error('Account service is deprecated. Use PostgreSQL queries in controllers instead.');
 }
+
 
 export default { getAccount, adjustBalance };

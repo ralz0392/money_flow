@@ -1,7 +1,8 @@
-import { firestore } from '../config/firebase';
+// Deprecated: Using PostgreSQL instead of Firestore
 
 export function collection(name: string) {
-  return firestore().collection(name);
+  throw new Error('Firestore service is deprecated. Use PostgreSQL queries instead.');
 }
 
 export default { collection };
+
